@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Elements\Body.png" />
+    <None Remove="Elements\DeadBody.png" />
+    <None Remove="Elements\DeadHead.png" />
+    <None Remove="Elements\DroidSansMono.ttf" />
+    <None Remove="Elements\Empty.png" />
+    <None Remove="Elements\Food.png" />
+    <None Remove="Elements\Head.png" />
+    <None Remove="Elements\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Elements\Body.png" />
+    <Resource Include="Elements\DeadBody.png" />
+    <Resource Include="Elements\DeadHead.png" />
+    <Resource Include="Elements\DroidSansMono.ttf" />
+    <Resource Include="Elements\Empty.png" />
+    <Resource Include="Elements\Food.png" />
+    <Resource Include="Elements\Head.png" />
+    <Resource Include="Elements\icon.ico" />
+  </ItemGroup>
+
+</Project>
