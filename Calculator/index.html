@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="calculator">
+      <header class="display">
+        <div class="displayNumber"></div>        
+      </header>
+      <main class="keyboard">
+        <div class="buttons">
+          <button onclick="deleteNumbersDisplay()" class="gray-button" id="deleteAll-button">C</button>
+          <button onclick="appendValue('+/-')" class="gray-button">±</button>
+          <button class="gray-button" id="heart">♡</button>
+          <button onclick="appendValue('/')" class="purple-button">÷</button>
+          <button onclick="appendValue('7')" class="number-button">7</button>
+          <button onclick="appendValue('8')" class="number-button">8</button>
+          <button onclick="appendValue('9')" class="number-button">9</button>
+          <button onclick="appendValue('*')" class="purple-button">*</button>
+          <button onclick="appendValue('4')" class="number-button">4</button>
+          <button onclick="appendValue('5')" class="number-button">5</button>
+          <button onclick="appendValue('6')" class="number-button">6</button>
+          <button onclick="appendValue('-')" class="purple-button">-</button>
+          <button onclick="appendValue('1')" class="number-button">1</button>
+          <button onclick="appendValue('2')" class="number-button">2</button>
+          <button onclick="appendValue('3')" class="number-button">3</button>
+          <button onclick="appendValue('+')" class="purple-button">+</button>
+          <button onclick="appendValue('0')" class="number-button" id="big-zero">0</button>
+          <button onclick="appendValue('.')" id="point">.</button>
+          <button onclick="calculate()" id="equal">=</button>
+        </div>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400;500;600;700;800;900&display=swap');
+
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Tektur";
+}
+
+body {
+  background-color: #f0f0f3;
+  max-width: 100vh;
+  margin: auto;
+  height: 100vh;
+}
+
+.calculator{
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #212020;
+    border-radius: 20px;
+    margin-top: 60px;
+    box-shadow: 0 40px 80px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.display{
+    width: 100%;
+    margin: auto;
+    height: 250px;
+    padding-bottom: 12px;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow:hidden;
+}
+
+.displayNumber{
+    color: #f2f2f4;
+    font-weight: bold;
+    font-size: 65px;
+    float: right;
+    margin-right: 32px;
+    align-self: flex-end;
+}
+
+.history{
+    color: #4f5d79;
+    font-size: 43px;
+}
+
+
+.keyboard{
+    background-color: #f0f0f3;
+    width: 100%;
+    margin: auto;
+    height: 350px;
+    border-radius: 20px;
+    padding-bottom: 200px;
+}
+
+.buttons{
+    padding: 30px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    height: 140%;
+    gap: 20px;
+}
+
+#big-zero{
+    grid-column: span 2;
+}
+
+button{
+    border-radius: 20px;
+    box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight:500;
+    color: #788fba;
+    font-family: "Tektur";
+}
+
+.gray-button{
+    color: #8c8c8c;
+}
+
+#deleteAll-button{
+    font-weight: 800;
+}
+
+#point{
+    color: #5b5b5c;
+    font-weight: bolder;
+}
+
+#equal{
+    background-color: #2dd3c5;
+    color: #cdebeb;
+}
+
+.purple-button{
+    color: #8371f2;
+}
+
