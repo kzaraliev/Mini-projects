@@ -193,6 +193,8 @@ function calculate() {
 
   let result = eval(expression);
 
+  result = Math.round((result + Number.EPSILON) * 100) / 100
+
   displayResult(result, expression, divWithNumbers);
 
   removeEventListeners(buttons, buttonClickHandler);
