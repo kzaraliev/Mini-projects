@@ -1,42 +1,65 @@
-var buttons = document.querySelectorAll("button:not(#heart)");
-var clickCount = 0;
-
-function buttonClickHandler() {
-  clickCount++;
-  
-  if (clickCount === 11) {
-    document.querySelector(".displayNumber").style.fontSize = "55px";
-  }
-}
-
-function removeEventListeners(buttons, eventListener) {
-  buttons.forEach(function (button) {
-    button.removeEventListener("click", eventListener);
-  });
-}
-
-function addEventListeners(buttons, eventListener) {
-  buttons.forEach(function (button) {
-    button.addEventListener("click", eventListener);
-  });
-}
+let buttons = document.querySelectorAll("button:not(#heart)");
+let clickCount = 0;
 
 buttons.forEach(function (button) {
   button.addEventListener("click", buttonClickHandler);
 });
 
+document
+  .querySelector("#deleteAll-button")
+  .addEventListener("click", function () {
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = false;
+    }
+
+    let deleteButton = document.querySelector("#deleteAll-button");
+    deleteButton.classList.remove("blob");
+  });
+
+function buttonClickHandler() {
+  //clickCount++;
+  const display = document.querySelector(".displayNumber");
+  clickCount = display.textContent.length;
+
+  if (clickCount === 11) {
+    document.querySelector(".displayNumber").style.fontSize = "55px";
+  }
+
+  if (clickCount === 13) {
+    document.querySelector(".displayNumber").style.fontSize = "50px";
+  }
+
+  if (clickCount === 15) {
+    document.querySelector(".displayNumber").style.fontSize = "40px";
+  }
+
+  if (clickCount === 17) {
+    buttons.forEach((bttn) => {
+      if (
+        bttn.classList.contains("number-button") ||
+        bttn.classList.contains("purple-button") ||
+        bttn.id === "point" ||
+        bttn.id === "plus-minus"
+      ) {
+        bttn.disabled = true;
+      }
+    });
+
+    let deleteButton = document.querySelector("#deleteAll-button");
+    deleteButton.classList.add("blob");
+  }
+}
+
 function appendValue(value) {
   const display = document.querySelector(".display");
   const divWithNumbers = display.children[0];
-
-  //Add function to display properly +/- (when number is positive => negative)+
 
   //Making first span always needed
   if (divWithNumbers.childElementCount === 0) {
     if (
       value === "+" ||
       value === "-" ||
-      value === "x" ||
+      value === "*" ||
       value === "/" ||
       value === "%" ||
       value === "." ||
@@ -58,7 +81,7 @@ function appendValue(value) {
     } else {
       deleteNumbersDisplay();
     }
-    createNewNumber(divWithNumbers, document);
+    createNewNumber(divWithNumbers);
   }
 
   operatorsChecker(value, divWithNumbers);
@@ -102,13 +125,13 @@ function operatorsChecker(value, divWithNumbers) {
       divWithNumbers.children[divWithNumbers.childElementCount - 1].textContent
         .length !== 0
     ) {
-      createNewNumber(divWithNumbers, document);
+      createNewNumber(divWithNumbers);
       if (spanChecker(value, divWithNumbers)) {
         divWithNumbers.children[
           divWithNumbers.childElementCount - 1
         ].textContent += value;
       }
-      createNewNumber(divWithNumbers, document);
+      createNewNumber(divWithNumbers);
     }
     return;
   }
@@ -157,9 +180,10 @@ function spanChecker(value, divWithNumbers) {
   return true;
 }
 
-function createNewNumber(divWithNumbers, document) {
+function createNewNumber(divWithNumbers) {
   let span = document.createElement("span");
   divWithNumbers.appendChild(span);
+  //clickCount++;
 }
 
 function deleteNumbersDisplay() {
@@ -170,9 +194,8 @@ function deleteNumbersDisplay() {
     numberOnDisplay.textContent = "";
   });
 
-  removeEventListeners(buttons, buttonClickHandler);
   clickCount = 0;
-  addEventListeners(buttons, buttonClickHandler);
+  document.querySelector(".displayNumber").style.fontSize = "65px";
 }
 
 function calculate() {
@@ -193,33 +216,58 @@ function calculate() {
 
   let result = eval(expression);
 
-  result = Math.round((result + Number.EPSILON) * 100) / 100
+  result = formatNumber(result);
 
   displayResult(result, expression, divWithNumbers);
 
-  removeEventListeners(buttons, buttonClickHandler);
   clickCount = 0;
   document.querySelector(".displayNumber").style.fontSize = "65px";
-  addEventListeners(buttons, buttonClickHandler);
+}
+
+function formatNumber(number) {
+  if (Number.isInteger(number)) {
+    return number; // Return the whole number as is
+  } else {
+    return number.toFixed(2); // Apply formatting for non-whole numbers
+  }
 }
 
 function displayResult(result, history, divWithNumbers) {
-
   deleteNumbersDisplay();
-  createNewNumber(divWithNumbers, document);
-  
+  createNewNumber(divWithNumbers);
+
   const display = document.querySelector(".display");
-  
+
   let resultDisplay = divWithNumbers.children[0];
   resultDisplay.textContent = result;
-  
-  if (result.toString().length > 9) {
-    document.querySelector(".displayNumber > span").style.fontSize = "55px";
-  }
 
   let historyNumber = document.createElement("div");
   historyNumber.classList.add("history");
   historyNumber.classList.add("displayNumber");
   historyNumber.textContent = history;
   display.appendChild(historyNumber);
+
+  lengthDesigner(result, history);
+}
+
+function lengthDesigner(result, history) {
+  if (result.toString().length > 9) {
+    document.querySelector(".displayNumber > span").style.fontSize = "55px";
+  }
+
+  if (result.toString().length >= 14) {
+    document.querySelector(".displayNumber > span").style.fontSize = "45px";
+    document.querySelector(".history").style.fontSize = "30px";
+  }
+
+  if (result.toString().length > 16 && history.length > 16) {
+    document.querySelector(".displayNumber > span").style.fontSize = "40px";
+    document.querySelector(".history").style.fontSize = "25px";
+  }
+
+  if (result.toString().length > 18 && history.length > 18) {
+    console.log(history.length);
+    document.querySelector(".displayNumber > span").style.fontSize = "30px";
+    document.querySelector(".history").style.fontSize = "20px";
+  }
 }

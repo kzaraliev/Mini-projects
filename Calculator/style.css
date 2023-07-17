@@ -64,6 +64,8 @@ body {
     grid-template-columns: auto auto auto auto;
     height: 140%;
     gap: 20px;
+    border: 0.5px solid gray;
+    border-radius: 20px;
 }
 
 #big-zero{
@@ -79,6 +81,7 @@ button{
     font-weight:500;
     color: #788fba;
     font-family: "Tektur";
+    border: 0.5px solid gray;
 }
 
 .gray-button{
@@ -103,3 +106,27 @@ button{
     color: #8371f2;
 }
 
+.blob {
+    
+    background-color: #f0f0f0;
+	box-shadow: 0 0 0 0 rgb(45, 211, 197);
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(45, 211, 197, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
