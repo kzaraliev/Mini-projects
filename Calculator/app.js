@@ -1,5 +1,5 @@
 let buttons = document.querySelectorAll("button:not(#heart)");
-let clickCount = 0;
+let numbersOnScreen = 0;
 
 buttons.forEach(function (button) {
   button.addEventListener("click", buttonClickHandler);
@@ -17,23 +17,22 @@ document
   });
 
 function buttonClickHandler() {
-  //clickCount++;
   const display = document.querySelector(".displayNumber");
-  clickCount = display.textContent.length;
+  numbersOnScreen = display.textContent.length;
 
-  if (clickCount === 11) {
-    document.querySelector(".displayNumber").style.fontSize = "55px";
+  if (numbersOnScreen === 11) {
+    display.style.fontSize = "55px";
   }
 
-  if (clickCount === 13) {
-    document.querySelector(".displayNumber").style.fontSize = "50px";
+  if (numbersOnScreen === 13) {
+    display.style.fontSize = "50px";
   }
 
-  if (clickCount === 15) {
-    document.querySelector(".displayNumber").style.fontSize = "40px";
+  if (numbersOnScreen === 15) {
+    display.style.fontSize = "40px";
   }
 
-  if (clickCount === 17) {
+  if (numbersOnScreen === 17) {
     buttons.forEach((bttn) => {
       if (
         bttn.classList.contains("number-button") ||
@@ -45,8 +44,7 @@ function buttonClickHandler() {
       }
     });
 
-    let deleteButton = document.querySelector("#deleteAll-button");
-    deleteButton.classList.add("blob");
+    document.querySelector("#deleteAll-button").classList.add("blob");
   }
 }
 
@@ -56,15 +54,7 @@ function appendValue(value) {
 
   //Making first span always needed
   if (divWithNumbers.childElementCount === 0) {
-    if (
-      value === "+" ||
-      value === "-" ||
-      value === "*" ||
-      value === "/" ||
-      value === "%" ||
-      value === "." ||
-      value === "+/-"
-    ) {
+    if (!Number.isInteger(Number(value))) {
       return;
     }
     createNewNumber(divWithNumbers, document);
@@ -75,7 +65,7 @@ function appendValue(value) {
     (value !== "+" || value !== "-" || value !== "*" || value !== "/")
   ) {
     display.lastChild.remove();
-    if (value === "+" || value === "-" || value === "*" || value === "/") {
+    if (checkIfValueIsOperator(value)) {
       operatorsChecker(value, divWithNumbers);
       return;
     } else {
@@ -84,11 +74,13 @@ function appendValue(value) {
     createNewNumber(divWithNumbers);
   }
 
-  operatorsChecker(value, divWithNumbers);
+  if (operatorsChecker(value, divWithNumbers)) {
+    return;
+  }
 
   //Changing the sign of the numbers
   if (value === "+/-") {
-    let currentSpan =
+    const currentSpan =
       divWithNumbers.children[divWithNumbers.childElementCount - 1];
     if (currentSpan.textContent.length > 0) {
       if (currentSpan.textContent.charAt(0) === "-") {
@@ -108,7 +100,7 @@ function appendValue(value) {
 }
 
 function operatorsChecker(value, divWithNumbers) {
-  if (value === "+" || value === "-" || value === "*" || value === "/") {
+  if (checkIfValueIsOperator(value)) {
     if (
       divWithNumbers.children[
         divWithNumbers.childElementCount - 1
@@ -118,7 +110,7 @@ function operatorsChecker(value, divWithNumbers) {
       ) === "."
     ) {
       console.log("Can't finish number on dot");
-      return;
+      return true;
     }
 
     if (
@@ -142,10 +134,7 @@ function spanChecker(value, divWithNumbers) {
     divWithNumbers.children[divWithNumbers.childElementCount - 1];
 
   //Making symbols to calculator
-  if (
-    currentSpan.length < 1 &&
-    (value === "+" || value === "-" || value === "*" || value === "/")
-  ) {
+  if (currentSpan.length < 1 && checkIfValueIsOperator(value)) {
     return true;
   }
 
@@ -166,11 +155,8 @@ function spanChecker(value, divWithNumbers) {
     let previousSpan =
       divWithNumbers.children[divWithNumbers.childElementCount - 2];
     if (
-      (previousSpan.textContent === "+" ||
-        previousSpan.textContent === "-" ||
-        previousSpan.textContent === "*" ||
-        previousSpan.textContent === "/") &&
-      (value === "+" || value === "-" || value === "*" || value === "/")
+      checkIfValueIsOperator(previousSpan.textContent) &&
+      checkIfValueIsOperator(value)
     ) {
       console.log("Check previous span (if he is only symbol)");
       return false;
@@ -180,10 +166,16 @@ function spanChecker(value, divWithNumbers) {
   return true;
 }
 
+function checkIfValueIsOperator(value) {
+  if (value === "+" || value === "-" || value === "*" || value === "/") {
+    return true;
+  }
+  return false;
+}
+
 function createNewNumber(divWithNumbers) {
-  let span = document.createElement("span");
+  const span = document.createElement("span");
   divWithNumbers.appendChild(span);
-  //clickCount++;
 }
 
 function deleteNumbersDisplay() {
@@ -194,7 +186,7 @@ function deleteNumbersDisplay() {
     numberOnDisplay.textContent = "";
   });
 
-  clickCount = 0;
+  numbersOnScreen = 0;
   document.querySelector(".displayNumber").style.fontSize = "65px";
 }
 
@@ -203,7 +195,7 @@ function calculate() {
   let allElements = Array.from(divWithNumbers.childNodes);
   let length = allElements.length;
 
-  //We need one more if statement, because there is a problem with symbols(creating too many spans)
+  //We need one more if statement, because there is a problem with operators(creating too many spans)
   if (length <= 3 && allElements[allElements.length - 1].textContent === "") {
     return;
   }
@@ -220,7 +212,7 @@ function calculate() {
 
   displayResult(result, expression, divWithNumbers);
 
-  clickCount = 0;
+  numbersOnScreen = 0;
   document.querySelector(".displayNumber").style.fontSize = "65px";
 }
 
@@ -251,23 +243,24 @@ function displayResult(result, history, divWithNumbers) {
 }
 
 function lengthDesigner(result, history) {
+  const historyOnDisplay = document.querySelector(".history");
+  const resultOnDisplay = document.querySelector(".displayNumber > span");
   if (result.toString().length > 9) {
-    document.querySelector(".displayNumber > span").style.fontSize = "55px";
+    resultOnDisplay.style.fontSize = "55px";
   }
 
   if (result.toString().length >= 14) {
-    document.querySelector(".displayNumber > span").style.fontSize = "45px";
-    document.querySelector(".history").style.fontSize = "30px";
+    resultOnDisplay.style.fontSize = "45px";
+    historyOnDisplay.style.fontSize = "30px";
   }
 
   if (result.toString().length > 16 && history.length > 16) {
-    document.querySelector(".displayNumber > span").style.fontSize = "40px";
-    document.querySelector(".history").style.fontSize = "25px";
+    resultOnDisplay.style.fontSize = "40px";
+    historyOnDisplay.style.fontSize = "25px";
   }
 
   if (result.toString().length > 18 && history.length > 18) {
-    console.log(history.length);
-    document.querySelector(".displayNumber > span").style.fontSize = "30px";
-    document.querySelector(".history").style.fontSize = "20px";
+    resultOnDisplay.style.fontSize = "30px";
+    historyOnDisplay.style.fontSize = "20px";
   }
 }
