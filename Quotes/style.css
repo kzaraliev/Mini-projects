@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap");
+
+body {
+  width: 1905px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+figure {
+  font-family: "Lugrasimo";
+  color: white;
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote p {
+  padding: 15px;
+  border-radius: 5px;
+}
+
+blockquote p::before {
+  content: "\201C";
+}
+
+blockquote p::after {
+  content: "\201D";
+}
+
+h1 {
+  text-align: center;
+  color: #0fa5c2;
+  margin: 0;
+  cursor: pointer;
+}
+
+figcaption {
+  float: right;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  max-width: 900px;
+  padding: 24px;
+}
+
+.content {
+  width: 900px;
+  height: 130px;
+  display: none;
+  transition: 1s;
+}
+
+.fadeIn {
+  animation: 0.5s fadeIn forwards;
+}
+
+@keyframes fadeIn {
+  from{
+    scale: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+a{
+  color: #0fa5c2;
+}
