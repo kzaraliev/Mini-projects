@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: linear-gradient(left, #212121, #323232);
+  box-shadow: 0 0 1px 1px #111;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #4A4A4A, #404040);
+  box-shadow: inset 0 0 1px 1px #191919;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(left, #555555, #4e4e4e);
+}
+
+body {
+  background-color: rgba(158, 158, 152, 0.664);
+}
+
+#site-background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: no-repeat center center;
+  background-image: url(img/mouth.png);
+  background-attachment: fixed;
+  background-size: 200%;
+}
+
+.enter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#bttn-enter {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 300px;
+  color: red;
+}
+
+.main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1400px;
+  height: 800px;
+  opacity: 0.95;
+  background-color: lightgray;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border: solid 5px rgb(0, 0, 0);
+  padding: 24px;
+}
+
+.fadeIn {
+  animation: 1s fadeIn;
+}
+
+@keyframes fadeIn {
+  from{
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+  justify-content: space-around;
+  margin: 24px 0;
+}
+
+a {
+  align-self: center;
+  background: transparent;
+  padding: 2rem 3rem;
+  margin: 0 1rem;
+  transition: all 0.5s ease;
+  color: #41403e;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  outline: none;
+  text-decoration: none;
+  box-shadow: 20px 38px 34px -26px hsla(0, 0%, 0%, 0.2);
+  border-radius: 15px 225px 15px 255px/ 225px 15px 255px 15px;
+  border: solid 4px #41403e;
+
+  &:hover {
+    box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
+  }
+}
+
+#logo-nav-bar {
+  width: 150px;
+  height: 150px;
+  padding: 0 24px;
+}
+
+.main-body {
+  overflow-y: scroll;
+  display: block;
+  height: 600px;
+}
+
