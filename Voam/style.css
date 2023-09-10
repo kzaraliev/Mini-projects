@@ -124,10 +124,9 @@ body {
   overflow-y: scroll;
   display: block;
   height: 600px;
-
 }
 
-.section{
+.section {
   padding: 24px;
 }
 
@@ -168,6 +167,7 @@ body {
   width: 300px;
   letter-spacing: 1px;
   margin: 24px;
+  cursor: pointer;
 }
 
 .product-block > h2 {
@@ -416,4 +416,70 @@ img {
   -moz-transform: translate3d(20px, 30px, 250px);
   -o-transform: translate3d(20px, 30px, 250px);
   transform: translate3d(20px, 30px, 250px);
+}
+
+#popup-window {
+  position: fixed;
+  width: 1200px;
+  height: 700px;
+  background-color: #d3d3d3;
+  padding: 10px;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  border-radius: 15px 225px 15px 255px/ 225px 15px 255px 15px;
+  border: solid 5px rgb(0, 0, 0);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+.open-window {
+  pointer-events: none;
+  cursor: default;
+  filter: brightness(50%);
+  animation: 0.5s darker;
+}
+
+
+@keyframes darker {
+  from {
+    filter: brightness(100%);
+  }
+  to {
+    filter: brightness(50%);
+  }
+}
+
+
+
+.disable-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+#popup-img {
+  width: 600px;
+  height: 600px;
+  object-fit: cover;
+}
+
+#popup-content{
+  width: 500px;
+  height: 400px;
+}
+
+#popup-content > h1{
+  font-size: 72px;
+  margin-bottom: 24px;
+}
+
+#popup-content > h2{
+  font-size: 48px;
+  color: #20201f9c;
+  margin-bottom: 24px;
 }
