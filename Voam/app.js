@@ -10,11 +10,10 @@ function enterSite(e) {
 
   background.style.transition = "background-size 0.7s ease-in-out";
   background.style.backgroundSize = "5%";
-  background.style.backgroundRepeat = "repeat";
   background.style.filter = "brightness(70%)";
 
   bttnEnter.innerHTML = "";
-  
+
   main.style.display = "flex";
   main.classList.add("fadeIn");
 }
