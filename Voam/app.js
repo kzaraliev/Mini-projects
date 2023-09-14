@@ -4,8 +4,12 @@ const main = document.querySelector(".main");
 const mainBody = document.querySelector(".main-body");
 const productBlocks = document.querySelectorAll(".open-popup");
 const body = document.querySelector("body");
+const shoppingCart = document.querySelector("#shopping-cart");
+
+slideshowMove();
 
 bttnEnter.addEventListener("click", enterSite);
+shoppingCart.addEventListener("click", openShoppingCart);
 
 productBlocks.forEach((product) => {
   product.addEventListener("click", function () {
@@ -14,8 +18,7 @@ productBlocks.forEach((product) => {
 });
 
 main.style.display = "none";
-
-let price = 0;
+let itemsInCart = [];
 
 function enterSite(e) {
   e.preventDefault();
@@ -30,6 +33,46 @@ function enterSite(e) {
   main.classList.add("fadeIn");
 }
 
+function createCloseButton(container) {
+  const closeBttn = createElement(
+    "div",
+    null,
+    ["close-container"],
+    null,
+    container
+  );
+  createElement("div", null, ["leftright"], null, closeBttn);
+  createElement("div", null, ["rightleft"], null, closeBttn);
+
+  closeBttn.addEventListener("click", function () {
+    main.classList.remove("fadeIn");
+    mainBody.classList.remove("disable-scroll");
+    main.classList.remove("open-window");
+    container.remove();
+  });
+}
+
+function openShoppingCart() {
+  const container = createElement("div", null, null, "popup-window", body);
+  const itemsContainer = createElement(
+    "div",
+    null,
+    null,
+    "items-shopping-cart",
+    container
+  );
+
+  const item = createElement(
+    "div",
+    null,
+    null,
+    "item-shopping-cart",
+    itemsContainer
+  );
+
+  createCloseButton(container);
+}
+
 function showProduct(product) {
   //access to product-block
   while (product.classList[0] != "product-block") {
@@ -38,6 +81,7 @@ function showProduct(product) {
 
   const container = createElement("div", null, null, "popup-window", body);
   const slideshow = product.firstElementChild.cloneNode(true);
+  slideshow.setAttribute("id", "popup-slideshow");
   container.appendChild(slideshow);
 
   const contentContainer = createElement(
@@ -48,50 +92,36 @@ function showProduct(product) {
     container
   );
 
-  for (const child of product.children) {
-    if (child.tagName == "IMG") {
-      img.src = child.src;
-    }
+  const content = product.childNodes[3].cloneNode(true);
+  content.classList.remove("product-content");
+  content.setAttribute("id", "popup-content-container");
+  contentContainer.appendChild(content);
 
-    if (child.tagName == "H1") {
-      createElement("h1", child.textContent, null, null, contentContainer);
-    }
-
-    if (child.tagName == "H2") {
-      price = Number(child.textContent.split("lv.")[0]);
-      const totalPrice = createElement(
-        "h2",
-        child.textContent,
-        null,
-        "price",
-        contentContainer
-      );
-    }
-  }
-
-  const orderContainer = createElement(
+  const sizeContainer = createElement(
     "div",
     null,
     null,
-    "popup-order",
+    "size-container",
     contentContainer
   );
-  const amountSelector = createElement(
-    "input",
-    null,
-    null,
-    "quantity",
-    orderContainer
-  );
+
+  createElement("p", "Size", null, "size-text", sizeContainer);
 
   const sizeSelector = createElement(
     "select",
     null,
     null,
     "size",
-    orderContainer
+    sizeContainer
   );
 
+  const defaultText = createElement(
+    "option",
+    "Choose an option",
+    null,
+    null,
+    sizeSelector
+  );
   const sSize = createElement("option", "S", null, null, sizeSelector);
   const mSize = createElement("option", "M", null, null, sizeSelector);
   const lSize = createElement("option", "L", null, null, sizeSelector);
@@ -100,69 +130,140 @@ function showProduct(product) {
   mSize.value = "M";
   lSize.value = "L";
 
+  defaultText.value = "";
+  defaultText.disabled = true;
+  defaultText.selected = true;
+
+  const orderContainer = createElement(
+    "div",
+    null,
+    null,
+    "popup-order",
+    contentContainer
+  );
+
+  const amountContainer = createElement(
+    "div",
+    null,
+    ["number"],
+    null,
+    orderContainer
+  );
+  createElement("span", "-", ["minus", "unselectable"], null, amountContainer);
+
+  const amountSelector = createElement(
+    "input",
+    null,
+    null,
+    "quantity",
+    amountContainer
+  );
+
+  createElement("span", "+", ["plus", "unselectable"], null, amountContainer);
+
+  amountSelector.value = "1";
   amountSelector.type = "number";
   amountSelector.min = "1";
 
   const addToCartBttn = createElement(
     "button",
-    "Add to cart",
     null,
-    "add-to-Cart",
+    ["addtocart"],
+    null,
     orderContainer
   );
 
-  const closeBttn = createElement("button", null, null, "closeBttn", container);
-  closeBttn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
-  closeBttn.addEventListener("click", closePopup);
+  const pretext = createElement("div", null, ["pretext"], null, addToCartBttn);
+  pretext.innerHTML = '<i class="fas fa-cart-plus"></i> ADD TO CART';
+
+  const pretextDone = createElement(
+    "div",
+    null,
+    ["pretext", "done"],
+    null,
+    addToCartBttn
+  );
+  const postText = createElement("div", null, ["posttext"], null, pretextDone);
+  postText.innerHTML = '<i class="fas fa-check"></i> ADDED';
+
+  createCloseButton(container);
 
   mainBody.classList.add("disable-scroll");
   main.classList.add("open-window");
   container.classList.add("fadeIn");
 
-  function closePopup() {
-    main.classList.remove("fadeIn");
-    mainBody.classList.remove("disable-scroll");
-    main.classList.remove("open-window");
-    container.remove();
-  }
-}
+  links = document.querySelectorAll(".slideshow-container a");
 
-function createElement(type, textContent, classes, id, parent) {
-  const element = document.createElement(type);
+  slideshowMove();
 
-  if (textContent) {
-    element.textContent = textContent;
-  }
+  document.querySelector(".minus").addEventListener("click", function () {
+    let input = document.querySelector("input");
+    let count = Number(input.value) - 1;
+    if (count < 1) {
+      return;
+    }
+    input.value = count.toString();
+    input.textContent = input.value;
+  });
+  document.querySelector(".plus").addEventListener("click", function () {
+    let input = document.querySelector("input");
+    let count = Number(input.value) + 1;
+    input.value = count.toString();
+    input.textContent = input.value;
+  });
 
-  if (classes && classes.length > 0) {
-    element.classList.add(...classes);
-  }
+  const done = document.querySelector(".done");
+  addToCartBttn.addEventListener("click", () => {
 
-  if (id) {
-    element.setAttribute("id", id);
-  }
+    if (sizeSelector.value == "") {
+      sizeSelector.classList.add("errors");
+      addToCartBttn.disabled = true;
+      setTimeout(function () {
+        sizeSelector.classList.remove("errors");
+        addToCartBttn.disabled = false;
+      }, 500);
+      return;
+    }
+    done.style.transform = "translate(0px)";
 
-  if (parent) {
-    parent.appendChild(element);
-  }
+    const itemForCart = {
+      img: slideshow.childNodes[1].childNodes[3],
+      productName: content.childNodes[3].textContent,
+      price: content.childNodes[5].textContent.match(/(\d+)/)[0],
+      size: sizeSelector.value,
+      amount: amountSelector.value
+    };
 
-  return element;
+    itemsInCart.push(itemForCart);
+
+    console.log(itemsInCart);
+
+    setTimeout(function () {
+      done.style.transform = "translate(-110%) skew(-40deg)";
+    }, 1000);
+  });
 }
 
 //slideshow===============================
-(function () {
+function slideshowMove() {
   init();
 
   function init() {
-    parents = document.getElementsByClassName("slideshow-container");
+    parents = document.querySelectorAll(
+      ".slideshow-container:not(.initialized-container)"
+    );
 
     for (j = 0; j < parents.length; j++) {
       var slides = parents[j].getElementsByClassName("mySlides");
       slides[0].classList.add("active-slide");
     }
+
+    parents.forEach((parent) => {
+      parent.classList.add("initialized-container");
+    });
   }
 
-  links = document.querySelectorAll(".slideshow-container a");
+  let links = document.querySelectorAll(".slideshow-container a");
 
   for (i = 0; i < links.length; i++) {
     links[i].onclick = function () {
@@ -188,4 +289,26 @@ function createElement(type, textContent, classes, id, parent) {
       }
     };
   }
-})();
+}
+
+function createElement(type, textContent, classes, id, parent) {
+  const element = document.createElement(type);
+
+  if (textContent) {
+    element.textContent = textContent;
+  }
+
+  if (classes && classes.length > 0) {
+    element.classList.add(...classes);
+  }
+
+  if (id) {
+    element.setAttribute("id", id);
+  }
+
+  if (parent) {
+    parent.appendChild(element);
+  }
+
+  return element;
+}
