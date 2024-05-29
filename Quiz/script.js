@@ -119,6 +119,15 @@ const qustionDataBase = [
     option4: "Palais de l'Élysée",
     ans: "answer4",
   },
+  {
+    question:
+      "Quel est le type de gouvernement de la France?",
+    option1: "Monarchie constitutionnelleRe",
+    option2: "République fédérative",
+    option3: "République présidentielle",
+    option4: "Monarchie absolue",
+    ans: "answer3",
+  },
 ];
 
 // getting referrence
