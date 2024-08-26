@@ -1,0 +1,83 @@
+[
+    {
+        "id": "e7b99b7c-5b84-4a1a-83d4-68d9e5a9fcb2",
+        "name": "AGWYT TEE BLACK",
+        "price": 50,
+        "availability": "In Stock",
+        "sizes": [
+            { "name": "S" },
+            { "name": "M" },
+            { "name": "L" }
+        ],
+        "images": [
+            { "filePath": "/images/AGWYT-Black.jpg" },
+            { "filePath": "/images/AGWYT1.jpg" },
+            { "filePath": "/images/AGWYT2.jpg" }
+        ],
+        "description": "A classic black tee featuring a soft, breathable fabric and a minimalist design. Perfect for everyday wear and layering."
+    },
+    {
+        "id": "c1c1d9e2-807b-48df-92b5-f0b0c678f3f8",
+        "name": "AGWYT TEE WHITE",
+        "price": 50,
+        "availability": "In Stock",
+        "sizes": [
+            { "name": "S" },
+            { "name": "M" }
+        ],
+        "images": [
+            { "filePath": "/images/AGWYT-White.jpg" },
+            { "filePath": "/images/AGWYT1.jpg" },
+            { "filePath": "/images/AGWYT2.jpg" }
+        ],
+        "description": "A timeless white tee with a soft, lightweight fabric. Ideal for a clean, casual look with versatile styling options."
+    },
+    {
+        "id": "f4a1a1e2-58bc-4d57-9dc7-0a58239a9f3e",
+        "name": "EMBROIDERY TEE BLACK",
+        "price": 55,
+        "availability": "Out of Stock",
+        "sizes": [
+            { "name": "M" },
+            { "name": "L" },
+            { "name": "XL" }
+        ],
+        "images": [
+            { "filePath": "/images/Embroidery-Tee-Black.jpg" },
+            { "filePath": "/images/Embroidery-Tee1.jpg" },
+            { "filePath": "/images/Embroidery-Tee2.jpg" }
+        ],
+        "description": "Elevate your style with this black tee featuring intricate embroidery. Made from high-quality cotton for a comfortable fit and unique look."
+    },
+    {
+        "id": "3c3c26bb-9e0c-4f97-bf59-d0e27ef324c6",
+        "name": "DEVOTION TEE WHITE",
+        "price": 50,
+        "availability": "In Stock",
+        "sizes": [
+            { "name": "S" },
+            { "name": "M" },
+            { "name": "L" },
+            { "name": "XL" }
+        ],
+        "images": [
+            { "filePath": "/images/Devotion1.jpg" },
+            { "filePath": "/images/Devotion2.jpg" }
+        ],
+        "description": "A stylish white tee with a modern design. Crafted for comfort and durability, it’s perfect for both casual outings and relaxed days at home."
+    },
+    {
+        "id": "f8c9b4d2-d78f-4a28-a88f-d2e8b5f14b74",
+        "name": "MIDNIGHT GREEN TRACKSUIT",
+        "price": 150,
+        "availability": "In Stock",
+        "sizes": [
+            { "name": "One Size" }
+        ],
+        "images": [
+            { "filePath": "/images/TRACKSUIT1.jpg" },
+            { "filePath": "/images/TRACKSUIT2.jpg" }
+        ],
+        "description": "A sleek midnight green tracksuit designed for both comfort and style. Featuring a relaxed fit and premium fabric, it’s perfect for workouts or casual wear."
+    }
+]
